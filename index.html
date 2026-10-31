@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>迎面接力 · 绕杆接棒教学动画</title>
+  <meta name="description" content="迎面接力教学动画：室外体育场 100m 直道中间 60m，两端标志杆各站 10 名同学，重点演示跑向左侧、右手杆后由右向左绕杆接棒与起跑。">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23c4553f' stroke='%23fff' stroke-width='4'/%3E%3Cpath d='M18 20h20a12 12 0 0 1 0 24H18' fill='none' stroke='%23facc15' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='34' cy='32' r='5' fill='%23e11d48' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>迎面接力 · <span class="hl">绕杆接棒</span>教学动画</h1>
+    <p class="sub">室外体育场 100 m 直道中间 60 m（20 m–80 m）· 两端标志杆 · 每端 10 名同学 · 红腕带标识右手（惯用手）</p>
+  </header>
+
+  <main>
+    <div class="modes" role="group" aria-label="教学演示模式">
+      <button type="button" class="mode active" data-mode="relay" aria-pressed="true">▶ 完整接力演示</button>
+      <button type="button" class="mode" data-mode="focus" aria-pressed="false">🔍 绕杆接棒分解</button>
+      <button type="button" class="mode" data-mode="demo" aria-pressed="false">⚖ 正误对比</button>
+    </div>
+
+    <div class="substeps" id="focus-steps" hidden role="group" aria-label="分解步骤选择">
+      <button type="button" class="step-btn active" data-step="loop" aria-pressed="true">↻ 连贯慢放</button>
+      <button type="button" class="step-btn" data-step="1" aria-pressed="false">① 跑向左侧 · 站位准备</button>
+      <button type="button" class="step-btn" data-step="2" aria-pressed="false">② 右手伸向右侧（杆后）</button>
+      <button type="button" class="step-btn" data-step="3" aria-pressed="false">③ 杆后由右向左接棒</button>
+      <button type="button" class="step-btn" data-step="4" aria-pressed="false">④ 绕杆完成 · 立即起跑</button>
+    </div>
+
+    <div class="stage-wrap" id="wrap">
+      <canvas id="stage" role="img" aria-label="迎面接力绕杆接棒教学动画画布：展示 100 米跑道中间 60 米区域、两端各 10 名同学及杆后右手绕杆交接过程"></canvas>
+    </div>
+
+    <div class="controls">
+      <div class="row">
+        <button type="button" id="play" class="btn primary">⏸ 暂停</button>
+        <button type="button" id="restart" class="btn">⟲ 重新开始</button>
+        <button type="button" id="next" class="btn">⏭ 下一次接棒</button>
+        <label class="sel" for="speed">速度
+          <select id="speed">
+            <option value="0.5">0.5×</option>
+            <option value="1" selected>1×</option>
+            <option value="2">2×</option>
+            <option value="4">4×</option>
+          </select>
+        </label>
+        <label class="chk" for="closeup"><input type="checkbox" id="closeup" checked> 接棒特写 + 慢放</label>
+        <label class="chk" for="trail"><input type="checkbox" id="trail" checked> 显示接力棒轨迹</label>
+      </div>
+      <div class="row">
+        <label class="sr-only" for="scrub">动画进度</label>
+        <input type="range" id="scrub" min="-6" max="209" step="0.01" value="-6">
+        <span id="clock" class="clock" aria-live="off">0:00</span>
+      </div>
+      <p class="hint">快捷键：<code>Space</code> 播放/暂停 · <code>→</code> 下一次接棒/下一阶段 · <code>R</code> 重新开始</p>
+    </div>
+
+    <section class="points" aria-labelledby="points-heading">
+      <h2 id="points-heading">动作要点口诀与解析</h2>
+      <div class="cards">
+        <article class="card">
+          <h3>① 场地与站位（60 m · 10 对 10）</h3>
+          <p>在室外体育场 100 m 直道取中间 <b>60 m</b>（20 m 与 80 m 处），两端各立一根<b>标志杆</b>，每端各站 <b>10 名</b>同学排成纵队于杆后。</p>
+        </article>
+        <article class="card key">
+          <h3>② 持棒者：跑向自己左侧</h3>
+          <p>右手持棒全速跑向对面，接近标志杆时<b>跑向自己的左侧</b>，让标志杆位于自己的右手边，<b>跑过杆线</b>到杆后再交棒。</p>
+        </article>
+        <article class="card key">
+          <h3>③ 接棒者：身在左、右手伸右</h3>
+          <p>面向来人站在杆后，<b>身体站在自己的左侧</b>，将<b>右手（惯用手）向右侧伸出</b>到标志杆正后方准备接棒。</p>
+        </article>
+        <article class="card key">
+          <h3>④ 绕杆核心：杆后 · 从右到左</h3>
+          <p>右手接棒后，接力棒从<b>杆后</b>经过，<b>从接棒者的右侧拉向左侧</b>，棒的轨迹绕标志杆走出一个清晰的 <b>“U” 形</b>。</p>
+        </article>
+        <article class="card">
+          <h3>⑤ 起跑与外侧回队</h3>
+          <p>完成绕杆引棒后<b>立即起跑</b>，同样沿自己的左侧跑向对面，来回两股跑动路线自然分居杆两侧不冲撞；交棒者从外侧慢跑回本端队尾。</p>
+        </article>
+        <article class="card warn">
+          <h3>⑥ 常见错误与犯规</h3>
+          <p>未绕杆直接在<b>杆前交接</b>；接棒同学提前越过杆线抢跑；跑错侧导致与对面来人迎面阻挡。</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>迎面接力绕杆接棒教学动画 · 纯前端 HTML5 Canvas 交互演示</footer>
+  <script src="app.js"></script>
+</body>
+</html>
